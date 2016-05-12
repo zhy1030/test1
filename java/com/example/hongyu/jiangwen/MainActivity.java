@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler mHandler = new Handler();
     private Runnable mRunable;
-    private static final int IMAGE_TIME = 30000;
+    private static final int IMAGE_TIME = 10000;
 
     private MediaPlayer.OnCompletionListener mOnCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -131,10 +131,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDefaultImage() {
         mImageView = (ImageView)findViewById(R.id.bgImage);
-        mImageRes = new int[3];
+        mImageRes = new int[10];
         mImageRes[0] = R.drawable.bg1;
         mImageRes[1] = R.drawable.bg2;
         mImageRes[2] = R.drawable.bg3;
+        mImageRes[3] = R.drawable.bg4;
+        mImageRes[4] = R.drawable.bg5;
+        mImageRes[5] = R.drawable.bg6;
+        mImageRes[6] = R.drawable.bg7;
+        mImageRes[7] = R.drawable.bg8;
+        mImageRes[8] = R.drawable.bg9;
+        mImageRes[9] = R.drawable.bg10;
         mImageView.setImageResource(mImageRes[mCurImage]);
     }
 
