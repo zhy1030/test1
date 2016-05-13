@@ -3,6 +3,7 @@
     package="com.example.hongyu.jiangwen">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <uses-permission android:name="android.permission.INJECT_EVENTS"></uses-permission>
 
     <application
         android:allowBackup="true"

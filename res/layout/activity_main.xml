@@ -8,7 +8,8 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     android:id="@+id/framelayout"
-    tools:context="com.example.hongyu.jiangwen.MainActivity">
+    tools:context="com.example.hongyu.jiangwen.MainActivity"
+    android:background="@drawable/background">
 
     <ImageView
         android:id="@+id/bgImage"
@@ -80,7 +81,8 @@
         android:id="@+id/textView"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="102dp"
-        android:textSize="24dp" />
+        android:textSize="24dp"
+        android:textColor="#000" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -89,7 +91,8 @@
         android:id="@+id/textView2"
         android:textSize="24dp"
         android:layout_marginLeft="70dp"
-        android:layout_marginTop="152dp" />
+        android:layout_marginTop="152dp"
+        android:textColor="#000" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -98,6 +101,15 @@
         android:id="@+id/textView3"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="202dp"
-        android:textSize="24dp" />
+        android:textSize="24dp"
+        android:textColor="#000" />
+
+    <ImageSwitcher
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageSwitcher"
+        android:layout_alignBottom="@+id/bgImage"
+        android:layout_alignLeft="@+id/btn_video"
+        android:layout_alignStart="@+id/btn_video" />
 
 </RelativeLayout>
