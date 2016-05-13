@@ -1,6 +1,9 @@
 package com.example.hongyu.jiangwen;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -11,6 +14,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.io.IOException;
@@ -22,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean mPaused = true;
     private String TAG = "JiangWen";
     private Context mContext;
+    private Activity mActivity;
 
     private ImageView mImageView;
     private int[] mImageRes;
@@ -30,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
     private Handler mHandler = new Handler();
     private Runnable mRunable;
     private static final int IMAGE_TIME = 10000;
+
+    private ImageButton btn_tv;
+    private ImageButton btn_music;
+    private ImageButton btn_video;
 
     private MediaPlayer.OnCompletionListener mOnCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -47,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+        mActivity = this;
         setContentView(R.layout.activity_main);
         setUriList();
         setDefaultMediaPlayer();
@@ -59,6 +70,65 @@ public class MainActivity extends AppCompatActivity {
                 mHandler.postDelayed(this,IMAGE_TIME);
             }
         };
+
+        // set button listeners
+        btn_tv = (ImageButton) findViewById(R.id.btn_tv);
+        btn_music = (ImageButton) findViewById(R.id.btn_music);
+        btn_video = (ImageButton) findViewById(R.id.btn_video);
+
+        // send back key twice
+        btn_tv.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(){
+                    public void run() {
+                        try{
+                            Instrumentation inst = new Instrumentation();
+                            inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+                            Log.d(TAG, "Send backkey 1");
+                        }
+                        catch (Exception e) {
+                            Log.e("Exception when onBack", e.toString());
+                        }
+                    }
+                }.start();
+
+                new Thread(){
+                    public void run() {
+                        try{
+                            Instrumentation inst = new Instrumentation();
+                            sleep(500);
+                            inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+                            Log.d(TAG, "Send backkey 2");
+                        }
+                        catch (Exception e) {
+                            Log.e("Exception when onBack", e.toString());
+                        }
+                    }
+                }.start();
+            }
+        });
+
+        // start music
+        btn_music.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_APP_MUSIC);
+                startActivity(intent);
+            }
+        });
+
+        // Send Home
+        btn_video.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     protected void onResume() {
@@ -85,10 +155,10 @@ public class MainActivity extends AppCompatActivity {
         mContext = null;
     }
 
-    public boolean onKeyDown (int keyCode, KeyEvent event) {
-        Log.d(TAG, "Key detected: " + keyCode);
-        return super.onKeyDown(keyCode, event);
-    }
+//    public boolean onKeyDown (int keyCode, KeyEvent event) {
+//        Log.d(TAG, "Key detected: " + keyCode);
+//        return super.onKeyDown(keyCode, event);
+//    }
 
     private void setUriList() {
         mUriList = new Uri[5];
